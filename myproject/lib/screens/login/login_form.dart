@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/components/custom_textfield.dart';
 import 'package:myproject/components/rounded_button.dart';
 import 'package:myproject/components/social_media_option.dart';
 
@@ -27,60 +28,35 @@ class LoginForm extends StatelessWidget {
             key: _formKeyLogin,
             child: Column(
               children: [
-                TextFormField(
+                customtextField(
                   controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  autofocus: false,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: "Email",
-                    prefixIcon: const Icon(Icons.email),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                    isDense: true,
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  ),
+                  hintText: "Email",
+                  prefixIcon: const Icon(Icons.email),
+                  isObscureText: false,
+                  keyboard: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "กรุณากรอกอีเมล";
-                    } else if (!value.contains("@")) {
+                    } else if (!RegExp(
+                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    ).hasMatch(value)) {
                       return "กรุณากรอกอีเมลให้ถูกต้อง";
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
+                customtextField(
                   controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    prefixIcon: const Icon(Icons.lock),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                    isDense: true,
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  ),
+                  hintText: "Password",
+                  prefixIcon: const Icon(Icons.lock),
+                  isObscureText: true,
+                  keyboard: TextInputType.visiblePassword,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "กรุณากรอกรหัสผ่าน";
                     } else if (value.length < 6) {
-                      return "กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัวอักษร";
+                      return "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร";
                     }
                     return null;
                   },
