@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:myproject/themes/style.dart';
 import 'package:myproject/utils/app_router.dart';
+import 'package:myproject/utils/utility.dart';
 
-void main() {
+var InitialRoute;
+void main() async {
+  //test logger
+  Utility.testLogger();
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Utility.initiSharedPrefs();
+
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  final loginStatus = Utility.getSharedPreferance('loginStatus');
+  final welcomeStatus = Utility.getSharedPreferance('WelcomeStatus');
+
+  if (loginStatus == true) {
+    InitialRoute = AppRouter.dashboard;
+  } else if (welcomeStatus == true) {
+    InitialRoute = AppRouter.login;
+  } else {
+    InitialRoute = AppRouter.welcome;
+  }
+
   runApp(const MyApp());
 }
 
@@ -14,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      initialRoute: AppRouter.welcome,
+      initialRoute: InitialRoute,
       routes: AppRouter.routes,
     );
   }

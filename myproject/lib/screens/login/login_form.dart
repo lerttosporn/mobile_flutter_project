@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:myproject/components/custom_textfield.dart';
 import 'package:myproject/components/rounded_button.dart';
 import 'package:myproject/components/social_media_option.dart';
+import 'package:myproject/services/rest_api.dart';
+import 'package:myproject/utils/app_router.dart';
+import 'package:myproject/utils/utility.dart';
 
 class LoginForm extends StatelessWidget {
-  LoginForm({Key? key}) : super(key: key);
+  LoginForm({super.key});
 
   // สร้าง GlobalKey สำหรับ Form นี้
   final _formKeyLogin = GlobalKey<FormState>();
@@ -75,12 +78,39 @@ class LoginForm extends StatelessWidget {
                 const SizedBox(height: 10),
                 RoundedButton(
                   label: "เข้าสู่ระบบ",
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKeyLogin.currentState!.validate()) {
                       _formKeyLogin.currentState!.save();
-                      // ถ้า validation ผ่าน
-                      print("Email: ${_emailController.text}");
-                      print("Password: ${_passwordController.text}");
+
+                      var response = await CallAPI().loginApi({
+                        "email": _emailController.text,
+                        "password": _passwordController.text,
+                      });
+                      var body = response;
+                      Utility.logger.i(body);
+                      if (body["status"] == "ok") {
+                        Utility.showAlertDialog(
+                          context,
+                          body["status"],
+                          '${body["message"]}',
+                        );
+                        //สามารถเก็บขเป็นList หรือ Map ได้
+                       await Utility.setSharedPreferance("loginStatus", true);
+                       await Utility.setSharedPreferance("token", body["token"]);
+                       await Utility.setSharedPreferance("user", body["user"]);
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRouter.dashboard,
+                          (route) => false,//ลบหน้าก่อนหน้าออกหมด
+                        );
+                       await Utility.setSharedPreferance("loginStatus", true);
+                      } else {
+                        Utility.showAlertDialog(
+                          context,
+                          body["status"],
+                          '${body["message"]}',
+                        );
+                      }
                     }
                   },
                 ),
@@ -89,7 +119,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           SocialMediaOption(),
-                    const SizedBox(height: 30),
+          const SizedBox(height: 30),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -97,9 +127,7 @@ class LoginForm extends StatelessWidget {
               const Text("ยังไม่มีบัญชีกับเรา? "),
               InkWell(
                 onTap: () {
-                  // Open Sign up screen here
-                  Navigator.pushReplacementNamed(context, '/register');
-                  // If you have AppRouter.register, use it instead of '/register'
+                  Navigator.pushNamed(context, AppRouter.register);
                 },
                 child: const Text(
                   "สมัครฟรี",

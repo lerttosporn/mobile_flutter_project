@@ -1,7 +1,8 @@
 //API URL
 //Localhost
-const baseURLAPI= "http://172.24.48.1:3000/api";
-const baseURLImage = "http://172.24.48.1:3000/uploads/images/ ";
+
+const baseURLAPI = "http://localhost:8800/api";
+const baseURLImage = "http://localhost:8800/uploads/images";
 
 //Server
 //const baseURL = "https://api.example.com/api";  

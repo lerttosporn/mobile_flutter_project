@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:myproject/themes/colors.dart';
 import 'package:myproject/utils/app_router.dart';
+import 'package:myproject/utils/utility.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
-
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
@@ -15,7 +14,13 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(BuildContext context) {
+  void _onIntroEnd(BuildContext context) async {
+
+    await Utility.initiSharedPrefs();
+    await Utility.setSharedPreferance('WelcomeStatus', true);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await prefs.setBool('WelcomeStatus', true);
+
     Navigator.pushNamed(context, AppRouter.login);
   }
 
@@ -53,19 +58,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       pages: [
         PageViewModel(
           title: "Fractional shares",
-          body: "Instead of having to buy an entire share, invest any amount you want.",
+          body:
+              "Instead of having to buy an entire share, invest any amount you want.",
           image: _buildImage('slide1.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Learn as you go",
-          body: "Download the Stockpile app and master the market with our mini-lesson.",
+          body:
+              "Download the Stockpile app and master the market with our mini-lesson.",
           image: _buildImage('slide2.png'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Kids and teens",
-          body: "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+          body:
+              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
           image: _buildImage('slide3.png'),
           decoration: pageDecoration,
         ),

@@ -1,3 +1,4 @@
+import 'package:myproject/screens/dashboard/dashbord_screen.dart';
 import 'package:myproject/screens/login/login_screen.dart';
 import 'package:myproject/screens/register/register_screen.dart';
 import 'package:myproject/screens/welcome/welcome_screen.dart';
@@ -7,10 +8,11 @@ class AppRouter {
   static const String welcome = 'welcome';
   static const String login = 'login';
   static const String register = 'register';
-
+  static const String dashboard = 'dashboard';
   static get routes => {
-        welcome: (context) => const WelcomeScreen(),
-        login: (context) => const LoginScreen(),
-        register:(context)=> const RegisterScreen(),
-      };
+    welcome: (context) => const WelcomeScreen(),
+    login: (context) => const LoginScreen(),
+    register: (context) => const RegisterScreen(),
+    dashboard:(context)=>const DashbordScreen(),
+  };
 }

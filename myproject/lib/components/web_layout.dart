@@ -5,10 +5,10 @@ class WebLayout extends StatelessWidget {
   final Widget dataWidget;
 
   const WebLayout({
-    Key? key,
+    super.key,
     required this.imageWidget,
     required this.dataWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

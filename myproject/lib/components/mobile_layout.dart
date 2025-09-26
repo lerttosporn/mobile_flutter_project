@@ -5,10 +5,10 @@ class MyWidget extends StatelessWidget {
   final Widget dataWidget;
 
   const MyWidget({
-    Key? key,
+    super.key,
     required this.imageWidget,
     required this.dataWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

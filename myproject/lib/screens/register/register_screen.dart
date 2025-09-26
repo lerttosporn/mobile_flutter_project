@@ -4,7 +4,7 @@ import 'package:myproject/components/web_layout.dart';
 import 'package:myproject/screens/register/register_form.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({ Key? key }) : super(key: key);
+  const RegisterScreen({ super.key });
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
