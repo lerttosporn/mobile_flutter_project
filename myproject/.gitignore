@@ -32,9 +32,7 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
-.dart_tool/
-.packages
-pubspec.lock
+
 # Symbolication related
 app.*.symbols
 
@@ -45,6 +43,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# Node.js
-node_modules/

@@ -14,7 +14,10 @@ interface UserInput {
 // Register function
 async function register(req: Request, res: Response): Promise<void> {
   const { firstname, lastname, email, password }: UserInput = req.body
-
+  if (!firstname || !lastname || !email || !password) {
+    res.status(400).json({ status: "error", message: "Missing required fields" });
+    return;
+  }
   // Check if the user already exists
   try {
     connection.execute(
