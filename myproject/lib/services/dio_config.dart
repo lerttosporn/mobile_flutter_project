@@ -5,7 +5,7 @@ import 'package:myproject/utils/utility.dart';
 class DioConfig {
   static late String _token;
 
-  static _getToken() async {
+  static getToken() async {
     Utility.getSharedPreferance(
       "token",
     ).then((value) => _token = value.toString());
