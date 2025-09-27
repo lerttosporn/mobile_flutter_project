@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/models/product_model.dart';
+import 'package:myproject/screens/prodects/components/product_item.dart';
+import 'package:myproject/services/rest_api.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isGridView = !isGridView;
     });
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,55 +30,60 @@ class _HomeScreenState extends State<HomeScreen> {
             isGridView ? Icons.list_outlined : Icons.grid_view_outlined,
           ),
         ),
+        title: Text("สินค้า"),
       ),
-      body: isGridView ? gridView() : listView(),
+
+      body: FutureBuilder(
+        future: CallAPI().getProducts(),
+        builder: (context, AsyncSnapshot snapshot) {
+          // กรณีที่มี error
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง'),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            // กรณีที่โหลดข้อมูลสำเร็จ
+            List<ProductModel> products = snapshot.data;
+            return isGridView ? gridView(products) : listView(products);
+          } else {
+            // กรณีที่กำลังโหลดข้อมูล
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 
-  Widget gridView() {
+  Widget gridView(List<ProductModel> productList) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: 12,
+      itemCount: productList.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0, 1),
-                blurRadius: 2,
-              ),
-            ],
-          ),
+        child: ProductItem(
+          product: productList[index],
+          isGrid: true,
+          onTap: () {},
         ),
       ),
     );
   }
 
-  Widget listView() {
+  Widget listView(List<ProductModel> productList) {
     return ListView.builder(
-      itemCount: 12,
+      itemCount: productList.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
         child: SizedBox(
           height: 350,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0, 1),
-                  blurRadius: 2,
-                ),
-              ],
-            ),
+          child: ProductItem(
+            product: productList[index],
+            isGrid: false,
+            onTap: () => {},
           ),
         ),
       ),

@@ -53,7 +53,7 @@ class CallAPI {
         //   'Authorization': 'Bearer ${token}', // <-- ใส่ token ตรงนี้
         // },
       );
-      Utility.logger.d(response.body);
+      // Utility.logger.d(response.body);
       // return jsonDecode(response.body);
       if (response.statusCode == 200) {
         final List<ProductModel> product_list = productModelFromJson(

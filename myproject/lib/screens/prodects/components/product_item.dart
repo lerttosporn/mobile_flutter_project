@@ -4,7 +4,7 @@ import 'package:myproject/models/product_model.dart';
 import 'package:myproject/utils/constant.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({
+ const ProductItem({
     required this.product,
     this.onTap,
     this.isGrid,
@@ -63,7 +63,7 @@ class ProductItem extends StatelessWidget {
     if (image.contains('://')) {
       imageUrl = image;
     } else {
-      imageUrl = '$baseURLImage$image';
+      imageUrl = '$baseURLImage/$image';
     }
     return Container(
       decoration: BoxDecoration(
