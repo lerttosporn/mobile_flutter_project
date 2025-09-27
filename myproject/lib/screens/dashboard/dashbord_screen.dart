@@ -20,7 +20,9 @@ class DashbordScreen extends StatelessWidget {
                 UserAccountsDrawerHeader(
                   accountName: Text("Name"),
                   accountEmail: Text("Email"),
-                  currentAccountPicture: CircleAvatar(),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage: AssetImage(  "assets/images/user.png"),
+                  ),
                 ),
               ],
             ),
