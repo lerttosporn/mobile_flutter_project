@@ -16,14 +16,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return ResponsiveLayout(
       mobileBody: WebLayout(
         imageWidget: Image.asset(
-          "../../assets/images/login.png",
+          "assets/images/login.png",
           width: 75,
         ),
         dataWidget: LoginForm(),
       ),
       tabletBody: WebLayout(
         imageWidget: Image.asset(
-          "../../assets/images/login.png",
+          "assets/images/login.png",
           width: 200,
         ),
         dataWidget: LoginForm(),

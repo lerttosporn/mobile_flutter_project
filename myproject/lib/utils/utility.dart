@@ -39,6 +39,7 @@ class Utility {
       return 'No Network Connection';
     }
   }
+
   //Shared Preferences-------------------------------------
   static SharedPreferences? _prefs;
   static Future initiSharedPrefs() async =>
@@ -62,12 +63,28 @@ class Utility {
     }
     return false;
   }
+
   //Get Preference-----------------------------------------
   static dynamic getSharedPreferance(String key) {
     if (_prefs == null) {
       return null;
     }
     return _prefs!.get(key);
+  }
+
+  //Delete Preferance--------------------------------------
+  static Future<bool> deleteAllSharedPreferance() async {
+    if (_prefs == null) {
+      return false;
+    }
+    return await _prefs!.clear();
+  }
+
+  static Future<bool> deleteSharedPreferance(String key) async {
+    if (_prefs == null) {
+      return false;
+    }
+    return await _prefs!.remove(key);
   }
 
   //Alert Dialog-------------------------------------------

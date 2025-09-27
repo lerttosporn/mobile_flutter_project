@@ -1,6 +1,6 @@
 import 'package:myproject/screens/dashboard/dashbord_screen.dart';
 import 'package:myproject/screens/drawerpage/about_screen.dart';
-import 'package:myproject/screens/drawerpage/contact_Screen.dart';
+import 'package:myproject/screens/drawerpage/contact_screen.dart';
 import 'package:myproject/screens/drawerpage/info_screen.dart';
 import 'package:myproject/screens/login/login_screen.dart';
 import 'package:myproject/screens/register/register_screen.dart';
@@ -23,6 +23,6 @@ class AppRouter {
     dashboard:(context)=>const DashbordScreen(),
     info: (context) => const InfoScreen(),
     about: (context) => const AboutScreen(),
-    contact: (context) => const ContactScreen(),
+    contact: (context) => const ContractScreen(),
   };
 }

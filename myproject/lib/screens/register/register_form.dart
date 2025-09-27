@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myproject/components/custom_textfield.dart';
 import 'package:myproject/components/rounded_button.dart';
 import 'package:myproject/services/rest_api.dart';
+import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/utility.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -116,9 +117,9 @@ class RegisterForm extends StatelessWidget {
                         "lastname": _lastNameControler.text,
                         "email": _emailController.text,
                         "password": _passwordController.text,
-                        
                       });
-                      Utility.logger.i(response); 
+                      Utility.logger.i(response);
+                      Navigator.pop(context);
                     }
                   },
                 ),
@@ -143,6 +144,11 @@ class RegisterForm extends StatelessWidget {
                     var response = await CallAPI().getProducts();
                     var body = response;
                     Utility.logger.i(body);
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRouter.login,
+                      (route) => false,
+                    );
                   },
                 ),
                 const SizedBox(height: 10),
