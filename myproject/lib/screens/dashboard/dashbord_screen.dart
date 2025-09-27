@@ -21,7 +21,7 @@ class DashbordScreen extends StatelessWidget {
                   accountName: Text("Name"),
                   accountEmail: Text("Email"),
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage(  "assets/images/user.png"),
+                    backgroundImage: AssetImage(  "../../../assets/images/user.png"),
                   ),
                 ),
               ],
