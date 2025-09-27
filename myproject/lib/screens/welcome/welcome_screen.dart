@@ -17,7 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void _onIntroEnd(BuildContext context) async {
 
     await Utility.initiSharedPrefs();
-    await Utility.setSharedPreferance('WelcomeStatus', true);
+    await Utility.setSharedPreference('WelcomeStatus', true);
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // await prefs.setBool('WelcomeStatus', true);
 

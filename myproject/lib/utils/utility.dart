@@ -42,10 +42,11 @@ class Utility {
 
   //Shared Preferences-------------------------------------
   static SharedPreferences? _prefs;
-  static Future initiSharedPrefs() async =>
-      _prefs = await SharedPreferences.getInstance();
+
+  static Future<void> initiSharedPrefs() async =>
+      _prefs ??= await SharedPreferences.getInstance();
   //Set Preference-----------------------------------------
-  static Future<bool> setSharedPreferance(String key, dynamic value) async {
+  static Future<bool> setSharedPreference(String key, dynamic value) async {
     if (_prefs == null) {
       return false;
     }
@@ -79,14 +80,12 @@ class Utility {
     }
     return await _prefs!.clear();
   }
-
   static Future<bool> deleteSharedPreferance(String key) async {
     if (_prefs == null) {
       return false;
     }
     return await _prefs!.remove(key);
   }
-
   //Alert Dialog-------------------------------------------
   static showAlertDialog(context, title, content) {
     showDialog(
