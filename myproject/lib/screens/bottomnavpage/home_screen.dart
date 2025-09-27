@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,12 +8,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isGridView = true;
+
+  void _toggleView() {
+    setState(() {
+      isGridView = !isGridView;
+    });
+  }
+ 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _listView());
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => _toggleView(),
+          //onPressed:toggleView,
+          icon: Icon(
+            isGridView ? Icons.list_outlined : Icons.grid_view_outlined,
+          ),
+        ),
+      ),
+      body: isGridView ? gridView() : listView(),
+    );
   }
 
-  Widget _gridView() {
+  Widget gridView() {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -40,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _listView() {
+  Widget listView() {
     return ListView.builder(
       itemCount: 12,
       itemBuilder: (context, index) => Padding(
