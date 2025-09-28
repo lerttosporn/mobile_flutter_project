@@ -95,21 +95,29 @@ class LoginForm extends StatelessWidget {
                           '${body["message"]}',
                         );
                         //สามารถเก็บขเป็นList หรือ Map ได้
-                       await Utility.setSharedPreference("loginStatus", true);
-                       await Utility.setSharedPreference("token", body["token"]);
-                       await Utility.setSharedPreference("user", body["user"]);
+                        await Utility.setSharedPreference("loginStatus", true);
+                        await Utility.setSharedPreference(
+                          "token",
+                          body["token"],
+                        );
+                        await Utility.setSharedPreference("user", body["user"]);
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           AppRouter.dashboard,
-                          (route) => false,//ลบหน้าก่อนหน้าออกหมด
+                          (route) => false, //ลบหน้าก่อนหน้าออกหมด
                         );
-                       await Utility.setSharedPreference("loginStatus", true);
+                        await Utility.setSharedPreference("loginStatus", true);
                       } else {
                         Utility.showAlertDialog(
                           context,
-                          body["status"],
-                          '${body["message"]}',
+                          body["status"] ?? "Error",
+                          body["message"]?.toString() ?? "Unknown error",
                         );
+                        // Utility.showAlertDialog(
+                        //   context,
+                        //   body["status"],
+                        //   '${body["message"]}',
+                        // );
                       }
                     }
                   },

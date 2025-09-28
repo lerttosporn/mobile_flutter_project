@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/components/mobile_layout.dart';
 import 'package:myproject/components/responsive_layout.dart';
 import 'package:myproject/components/web_layout.dart';
 import 'package:myproject/screens/login/login_form.dart';
@@ -14,14 +15,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      mobileBody: WebLayout(
+      mobileChild: MobileLayout(
         imageWidget: Image.asset(
           "assets/images/login.png",
           width: 75,
         ),
         dataWidget: LoginForm(),
       ),
-      tabletBody: WebLayout(
+      webChild: WebLayout(
         imageWidget: Image.asset(
           "assets/images/login.png",
           width: 200,

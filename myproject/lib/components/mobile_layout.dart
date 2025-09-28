@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
+class MobileLayout extends StatelessWidget {
   final Image imageWidget;
   final Widget dataWidget;
 
-  const MyWidget({
+  const MobileLayout({
     super.key,
     required this.imageWidget,
     required this.dataWidget,

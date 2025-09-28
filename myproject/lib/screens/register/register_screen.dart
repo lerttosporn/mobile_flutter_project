@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/components/mobile_layout.dart';
 import 'package:myproject/components/responsive_layout.dart';
 import 'package:myproject/components/web_layout.dart';
 import 'package:myproject/screens/register/register_form.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({ super.key });
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  @override
+   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      mobileBody: WebLayout(
-        imageWidget: Image.asset(
-          "../../assets/images/login.png",
-          width: 75,
+        webChild: WebLayout(
+          imageWidget: Image.asset(
+            "assets/images/signup.png",
+            width: 200,
+          ),
+
+          dataWidget:
+              RegisterForm(), //Lets define widget for Sign up form & use here
         ),
-        dataWidget: RegisterForm(),
-      ),
-      tabletBody: WebLayout(
-        imageWidget: Image.asset(
-          "../../assets/images/signup.png",
-          width: 200,
-        ),
-        dataWidget: RegisterForm(),
-      ),
-    );
+        mobileChild: MobileLayout(
+          imageWidget: Image.asset(
+            "assets/images/signup.png",
+            width: 75,
+          ),
+          dataWidget: RegisterForm(),
+        ));
   }
 }
