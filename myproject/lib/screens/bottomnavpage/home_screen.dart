@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myproject/models/product_model.dart';
-import 'package:myproject/screens/prodects/components/product_item.dart';
+import 'package:myproject/screens/products/components/product_item.dart';
 import 'package:myproject/services/rest_api.dart';
+import 'package:myproject/utils/app_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +32,21 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         title: Text("สินค้า"),
+         actions: [
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 12,
+            ), // ขยับเข้าด้านในนิดหน่อย
+            child: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                // การกระทำเมื่อกดปุ่ม +
+                Navigator.pushNamed(context,AppRouter.productAdd);
+                print("Add button pressed");
+              },
+            ),
+          ),
+        ],
       ),
 
       body: FutureBuilder(
