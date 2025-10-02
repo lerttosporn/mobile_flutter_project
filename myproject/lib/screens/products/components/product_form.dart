@@ -44,7 +44,9 @@ class _ProductFormState extends State<ProductForm> {
             customTextFieldProduct(
               initialValue: widget.product.description.toString(),
               hintText: 'รายละเดียด',
-              prefixIcon: const Icon(Icons.shopping_bag_outlined),
+              textInputType: TextInputType.multiline,
+              maxLines: 5,
+              prefixIcon: const Icon(Icons.description_outlined),
               obscureText: false,
               validator: (value) => (value == null || value.isEmpty)
                   ? 'กรุณากรอก รายละเดียดสินค้า'
@@ -56,7 +58,8 @@ class _ProductFormState extends State<ProductForm> {
             customTextFieldProduct(
               initialValue: widget.product.barcode.toString(),
               hintText: 'บาร์โค้ดสินค้า',
-              prefixIcon: const Icon(Icons.shopping_bag_outlined),
+              textInputType: TextInputType.number,
+              prefixIcon: const Icon(Icons.qr_code_scanner_outlined),
               obscureText: false,
               validator: (value) => (value == null || value.isEmpty)
                   ? 'กรุณากรอก บาร์โค้ดสินค้า'
@@ -67,74 +70,65 @@ class _ProductFormState extends State<ProductForm> {
             const SizedBox(height: 10),
             Row(
               children: [
-                customTextFieldProduct(
-                  initialValue: widget.product.price.toString(),
-                  hintText: 'ราคาสินค้า',
-                  prefixIcon: const Icon(Icons.shopping_bag_outlined),
-                  obscureText: false,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? 'กรุณากรอก ราคาสินค้า'
-                      : null,
+                Expanded(
+                  child: customTextFieldProduct(
+                    initialValue: widget.product.price.toString(),
+                    hintText: 'ราคาสินค้า',
+                    textInputType: TextInputType.number,
+                    prefixIcon: const Icon(Icons.attach_money_outlined),
+                    obscureText: false,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? 'กรุณากรอก ราคาสินค้า'
+                        : null,
 
-                  onSaved: (value) => widget.product.price = int.parse(value!),
+                    onSaved: (value) =>
+                        widget.product.price = int.parse(value!),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                customTextFieldProduct(
-                  initialValue: widget.product.stock.toString(),
-                  hintText: 'จำนวนสินค้า',
-                  prefixIcon: const Icon(Icons.shopping_bag_outlined),
-                  obscureText: false,
-                  validator: (value) => (value == null || value.isEmpty)
-                      ? 'กรุณากรอก จำนวนสินค้า'
-                      : null,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: customTextFieldProduct(
+                    initialValue: widget.product.stock.toString(),
+                    hintText: 'จำนวนสินค้า',
+                    textInputType: TextInputType.number,
+                    prefixIcon: const Icon(Icons.shopping_cart_outlined),
+                    obscureText: false,
+                    validator: (value) => (value == null || value.isEmpty)
+                        ? 'กรุณากรอก จำนวนสินค้า'
+                        : null,
 
-                  onSaved: (value) => widget.product.stock = int.parse(value!),
+                    onSaved: (value) =>
+                        widget.product.stock = int.parse(value!),
+                  ),
                 ),
               ],
-            ),
-            const SizedBox(height: 10),
-            customTextFieldProduct(
-              initialValue: widget.product.name.toString(),
-              hintText: 'ชื่อสินค้า',
-              prefixIcon: const Icon(Icons.shopping_bag_outlined),
-              obscureText: false,
-              validator: (value) => (value == null || value.isEmpty)
-                  ? 'กรุณากรอก บาร์โค้ดสินค้า'
-                  : null,
-
-              onSaved: (value) => widget.product.name = value!,
-            ),
-            const SizedBox(height: 10),
-            customTextFieldProduct(
-              initialValue: widget.product.name.toString(),
-              hintText: 'ชื่อสินค้า',
-              prefixIcon: const Icon(Icons.shopping_bag_outlined),
-              obscureText: false,
-              validator: (value) => (value == null || value.isEmpty)
-                  ? 'กรุณากรอก บาร์โค้ดสินค้า'
-                  : null,
-
-              onSaved: (value) => widget.product.name = value!,
-            ),
-            const SizedBox(height: 10),
-            customTextFieldProduct(
-              initialValue: widget.product.name.toString(),
-              hintText: 'ชื่อสินค้า',
-              prefixIcon: const Icon(Icons.shopping_bag_outlined),
-              obscureText: false,
-              validator: (value) => (value == null || value.isEmpty)
-                  ? 'กรุณากรอก บาร์โค้ดสินค้า'
-                  : null,
-
-              onSaved: (value) => widget.product.name = value!,
             ),
             const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
                   child: customTextFieldProduct(
+                    initialValue: widget.product.categoryId.toString(),
+                    obscureText: false,
+                    hintText: 'หมวดหมู่',
+                    textInputType: TextInputType.number,
+                    prefixIcon: const Icon(Icons.category_outlined),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'กรุณากรอกหมวดหมู่สินค้า';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) =>
+                        widget.product.categoryId = int.parse(value!),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: customTextFieldProduct(
                     initialValue: widget.product.userId.toString(),
                     hintText: 'ผู้ใช้',
+                    textInputType: TextInputType.number,
                     prefixIcon: const Icon(Icons.person_outline),
                     obscureText: false,
                     validator: (value) => value == null || value.isEmpty
@@ -144,7 +138,7 @@ class _ProductFormState extends State<ProductForm> {
                         widget.product.userId = int.parse(value!),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: customTextFieldProduct(
                     initialValue: widget.product.statusId.toString(),
@@ -164,13 +158,11 @@ class _ProductFormState extends State<ProductForm> {
                 ),
               ],
             ),
-            const SizedBox(
-                height: 10,
-              ),
-              ProductImage(
-                widget.callBackSetImage,
-                image: widget.product.image,
-              ),
+            const SizedBox(height: 10),
+            // ProductImage(
+            //   widget.callBackSetImage,
+            //   image: widget.product.image,
+            // ),
           ],
         ),
       ),
