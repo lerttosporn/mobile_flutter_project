@@ -187,7 +187,7 @@ class _ProductImageState extends State<ProductImage> {
         WebUiSettings(
           context: context,
           presentStyle: WebPresentStyle.dialog,
-          size: const CropperSize(width: 520, height: 520),
+          size: const CropperSize(width: 500, height: 500),
         ),
       );
     } else {
