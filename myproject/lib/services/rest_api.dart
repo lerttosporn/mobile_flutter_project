@@ -71,7 +71,7 @@ class CallAPI {
     }
   }
 
-  Future<String> addProductApi(ProductModel product, {File? imageFile}) async {
+  Future<String> addProductAPI(ProductModel product, {File? imageFile}) async {
     final request = http.MultipartRequest(
       "POST",
       Uri.parse("$baseURLAPI/product"),
