@@ -8,7 +8,7 @@ import 'package:myproject/screens/products/components/product_image.dart';
 
 class ProductForm extends StatefulWidget {
   final ProductModel product;
-  final Function(File? file) callBackSetImage;
+  final Function(File? file, [String? webImageUrl]) callBackSetImage;
   final GlobalKey<FormState> formKey;
 
   const ProductForm(
@@ -172,7 +172,7 @@ class _ProductFormState extends State<ProductForm> {
             const SizedBox(height: 10),
             ProductImage(
               widget.callBackSetImage,
-              image: widget.product.image,
+              imageUrl: widget.product.image,
             ),
           ],
         ),

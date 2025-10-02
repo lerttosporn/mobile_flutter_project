@@ -64,7 +64,10 @@ class _ProductAddState extends State<ProductAdd> {
     );
   }
 
-  void _callBackSetImage(File? imageFile) {
+  void _callBackSetImage(File? imageFile,
+  //ใช้กับ Web
+   [String? webImageUrl]
+   ) {
     setState(() {
       _imageFile = imageFile;
     });
