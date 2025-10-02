@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myproject/components/custom_textfield.dart';
 import 'package:myproject/models/product_model.dart';
 
@@ -59,6 +60,9 @@ class _ProductFormState extends State<ProductForm> {
               initialValue: widget.product.barcode.toString(),
               hintText: 'บาร์โค้ดสินค้า',
               textInputType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly,
+              ],
               prefixIcon: const Icon(Icons.qr_code_scanner_outlined),
               obscureText: false,
               validator: (value) => (value == null || value.isEmpty)
@@ -75,6 +79,9 @@ class _ProductFormState extends State<ProductForm> {
                     initialValue: widget.product.price.toString(),
                     hintText: 'ราคาสินค้า',
                     textInputType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     prefixIcon: const Icon(Icons.attach_money_outlined),
                     obscureText: false,
                     validator: (value) => (value == null || value.isEmpty)
@@ -91,6 +98,9 @@ class _ProductFormState extends State<ProductForm> {
                     initialValue: widget.product.stock.toString(),
                     hintText: 'จำนวนสินค้า',
                     textInputType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     prefixIcon: const Icon(Icons.shopping_cart_outlined),
                     obscureText: false,
                     validator: (value) => (value == null || value.isEmpty)

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:myproject/models/product_model.dart';
 import 'package:myproject/screens/products/components/product_form.dart';
+import 'package:myproject/utils/utility.dart';
 
 class ProductAdd extends StatefulWidget {
   const ProductAdd({super.key});
@@ -38,7 +39,13 @@ class _ProductAddState extends State<ProductAdd> {
         title: const Text("Add New Product!!! "),
         actions: [
           IconButton(
-            onPressed: () => {},
+            onPressed: () async {
+              if (_formKeyAddProduct.currentState!.validate()) {
+                _formKeyAddProduct.currentState!.save();
+                Utility.logger.d(_product.toJson());
+                Utility.logger.d(_imageFile);
+              }
+            },
             icon: const Icon(Icons.save_alt_outlined),
           ),
         ],

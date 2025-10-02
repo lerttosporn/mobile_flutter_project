@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Widget customtextField({
   required TextEditingController controller,
@@ -35,11 +36,13 @@ Widget customTextFieldProduct({
   TextInputType textInputType = TextInputType.text,
   int maxLines = 1,
   String initialValue = '',
+  List<TextInputFormatter>? inputFormatters,
   required String? Function(String?)? validator,
   required Function(String?)? onSaved,
 }) {
   return TextFormField(
     keyboardType: textInputType,
+    inputFormatters:inputFormatters,
     maxLines: maxLines,
     autofocus: false,
     enableSuggestions: false,
