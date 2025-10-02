@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/models/product_model.dart';
 
 class ProductAdd extends StatefulWidget {
   const ProductAdd({super.key});
@@ -8,6 +9,19 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
+  final _formKeyAddProduct = GlobalKey<FormState>();
+
+  final _product = ProductModel(
+    name: "",
+    description: "",
+    barcode: "",
+    stock: 0,
+    price: 0,
+    categoryId: 1,
+    userId: 1,
+    statusId: 1,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
