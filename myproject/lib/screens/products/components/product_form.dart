@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myproject/components/custom_textfield.dart';
 import 'package:myproject/models/product_model.dart';
+import 'package:myproject/screens/products/components/product_image.dart';
 
 class ProductForm extends StatefulWidget {
   final ProductModel product;
@@ -169,10 +170,10 @@ class _ProductFormState extends State<ProductForm> {
               ],
             ),
             const SizedBox(height: 10),
-            // ProductImage(
-            //   widget.callBackSetImage,
-            //   image: widget.product.image,
-            // ),
+            ProductImage(
+              widget.callBackSetImage,
+              image: widget.product.image,
+            ),
           ],
         ),
       ),
