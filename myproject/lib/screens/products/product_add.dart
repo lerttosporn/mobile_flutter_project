@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myproject/models/product_model.dart';
+import 'package:myproject/screens/products/components/product_form.dart';
 
 class ProductAdd extends StatefulWidget {
   const ProductAdd({super.key});
@@ -9,8 +12,10 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
+  // สร้าง GlobalKey สำหรับฟอร์ม
   final _formKeyAddProduct = GlobalKey<FormState>();
 
+  // สร้างตัวแปรสำหรับเก็บข้อมูล Product
   final _product = ProductModel(
     name: "",
     description: "",
@@ -21,6 +26,10 @@ class _ProductAddState extends State<ProductAdd> {
     userId: 1,
     statusId: 1,
   );
+
+  // ไฟล์รูปภาพ
+  File? _imageFile;
+  // ✅ Callback สำหรับเซ็ตรูปภาพ
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,23 @@ class _ProductAddState extends State<ProductAdd> {
           ),
         ],
       ),
-      body: const Center(child: Text("Add New Product!!! ")),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProductForm(
+              _product,
+              callBackSetImage: _callBackSetImage,
+              formKey: _formKeyAddProduct,
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  void _callBackSetImage(File? imageFile) {
+    setState(() {
+      _imageFile = imageFile;
+    });
   }
 }
