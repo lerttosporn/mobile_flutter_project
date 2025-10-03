@@ -32,17 +32,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         title: Text("สินค้า"),
-         actions: [
+        actions: [
           Padding(
-            padding: const EdgeInsets.only(
-              right: 12,
-            ), // ขยับเข้าด้านในนิดหน่อย
+            padding: const EdgeInsets.only(right: 12), // ขยับเข้าด้านในนิดหน่อย
             child: IconButton(
               icon: const Icon(Icons.add),
-              onPressed: () {
-                // การกระทำเมื่อกดปุ่ม +
-                Navigator.pushNamed(context,AppRouter.productAdd);
-                print("Add button pressed");
+              onPressed: () async {
+                // setState(() {}) จะ trigger FutureBuilder ใหม่ เพราะ widget ถูก rebuild
+                final result = await Navigator.pushNamed(
+                  context,
+                  AppRouter.productAdd,
+                );
+                if (result == true) {
+                  setState(
+                    () {},
+                  ); // สั่งให้ build ใหม่ แล้ว FutureBuilder จะ reload
+                }
               },
             ),
           ),
@@ -63,9 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return isGridView ? gridView(products) : listView(products);
           } else {
             // กรณีที่กำลังโหลดข้อมูล
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
@@ -78,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 0,
         mainAxisExtent: 200,
-        mainAxisSpacing: 0
+        mainAxisSpacing: 0,
       ),
       itemCount: productList.length,
       itemBuilder: (context, index) => Padding(
