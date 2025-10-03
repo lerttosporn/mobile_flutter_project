@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myproject/utils/constant.dart';
+import 'package:myproject/utils/utility.dart';
 
 class ProductImage extends StatefulWidget {
   final Function(
@@ -57,6 +58,7 @@ class _ProductImageState extends State<ProductImage> {
     }
 
     if (kIsWeb && _webImagePath != null) {
+
       return Stack(
         children: [
           _reuseContainer(
@@ -224,13 +226,16 @@ class _ProductImageState extends State<ProductImage> {
       setState(() {
         if (kIsWeb) {
           _webImagePath = cropped.path;
-          widget.callBackSetImage(null, _webImagePath); // <-- ใส่ตรงนี้
+
+          widget.callBackSetImage(null,_webImagePath); // <-- ใส่ตรงนี้
         } else {
           _imageFile = File(cropped.path);
           widget.callBackSetImage(_imageFile);
         }
       });
     }
+    Utility.logger.d("_webImagePath = $_webImagePath");
+    Utility.logger.d("_imageFile = $_imageFile");
   }
 
   Positioned _buildDeleteImageButton() {
