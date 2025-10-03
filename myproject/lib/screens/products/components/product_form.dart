@@ -40,7 +40,7 @@ class _ProductFormState extends State<ProductForm> {
                   ? 'กรุณากรอก ชื่อสินค้า'
                   : null,
 
-              onSaved: (value) => widget.product.description = value!,
+              onSaved: (value) => widget.product.name = value!,
             ),
             const SizedBox(height: 10),
             customTextFieldProduct(
