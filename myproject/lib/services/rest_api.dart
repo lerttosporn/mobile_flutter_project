@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:myproject/models/product_model.dart';
@@ -71,24 +72,44 @@ class CallAPI {
     }
   }
 
-  Future<String> addProductAPI(ProductModel product, {File? imageFile}) async {
+  Future<List<int>> _readBytesFromBlobUrl(String url) async {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return response.bodyBytes;
+    } else {
+      throw Exception('Failed to read bytes from blob URL');
+    }
+  }
+
+  Future<Map<String, dynamic>> addProductAPI(
+    ProductModel product, {
+    File? imageFile,
+    String? webImageUrl,
+  }) async {
     final request = http.MultipartRequest(
       "POST",
-      Uri.parse("$baseURLAPI/product"),
+      Uri.parse("$baseURLAPI/products"), // ✅ อัปเดต endpoint
     );
+
     final headers = await HttpConfig.headers;
     request.headers.addAll(headers);
+
+    // ✅ ใส่ค่า fields อย่างถูกต้อง
     request.fields['name'] = product.name ?? "";
     request.fields['description'] = product.description ?? "";
     request.fields['barcode'] = product.barcode ?? "";
     request.fields['stock'] = product.stock.toString();
     request.fields['price'] = product.price.toString();
-    request.fields['catetagory_id'] = product.categoryId.toString();
+    request.fields['category_id'] = product.categoryId
+        .toString(); // ✅ แก้ชื่อ field
     request.fields['user_id'] = product.userId.toString();
     request.fields['status_id'] = product.statusId.toString();
 
+    Utility.logger.i("Request Fields: ${request.fields}");
+
+    // ✅ อัปโหลดไฟล์แบบ File
     if (imageFile != null) {
-      final mimeType = MediaType('image', 'jpeg'); // หรือ image/png ถ้าจำเป็น
+      final mimeType = MediaType('image', 'jpeg');
       request.files.add(
         await http.MultipartFile.fromPath(
           'photo',
@@ -98,12 +119,32 @@ class CallAPI {
         ),
       );
     }
+    // ✅ สำหรับ Web - ใช้ bytes ไม่ใช่ base64 string
+    else if (kIsWeb && webImageUrl != null) {
+      final bytes = await _readBytesFromBlobUrl(webImageUrl);
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'photo',
+          bytes,
+          filename: 'web_image.jpg',
+          contentType: MediaType('image', 'jpeg'),
+        ),
+      );
+      Utility.logger.i("Web image uploaded as bytes");
+    }
+
+    // ✅ ส่ง request และรับ response
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
 
     if (response.statusCode == 200) {
-      Utility.logger.d(jsonDecode(response.body)); // debug log
-      return jsonDecode(response.body);
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final productData = responseData['product'];
+      Utility.logger.d("responseData: $responseData");
+
+      Utility.logger.d("productData: $productData");
+
+      return responseData; // ✅ return เฉพาะ object ของ product
     } else {
       throw Exception(
         "Failed to create product: ${response.statusCode} - ${response.body}",
