@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:myproject/models/product_model.dart';
 import 'package:myproject/screens/products/components/product_form.dart';
+import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/utility.dart';
 
 class ProductAdd extends StatefulWidget {
@@ -31,6 +33,7 @@ class _ProductAddState extends State<ProductAdd> {
   // ไฟล์รูปภาพ
   File? _imageFile;
   // ✅ Callback สำหรับเซ็ตรูปภาพ
+  String? _webImageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,19 @@ class _ProductAddState extends State<ProductAdd> {
               if (_formKeyAddProduct.currentState!.validate()) {
                 _formKeyAddProduct.currentState!.save();
                 Utility.logger.d(_product.toJson());
-                Utility.logger.d(_imageFile);
+                Utility.logger.d("_webImagePath = $_webImageUrl");
+                Utility.logger.d("_imageFile = $_imageFile");
+                final response = await CallAPI().addProductAPI(
+                  _product,
+                  imageFile: _imageFile,
+                  webImageUrl: _webImageUrl,
+                );
+                Utility.logger.d("Product Created: ${response["product"]}");
+                if (response['status'] == 'ok') {
+                  Navigator.pop(context, true);
+                } else {
+                  Utility.logger.e(" api error ");
+                }
               }
             },
             icon: const Icon(Icons.save_alt_outlined),
@@ -64,12 +79,14 @@ class _ProductAddState extends State<ProductAdd> {
     );
   }
 
-  void _callBackSetImage(File? imageFile,
-  //ใช้กับ Web
-   [String? webImageUrl]
-   ) {
+  void _callBackSetImage(
+    File? imageFile, [
+    //ใช้กับ Web
+    String? webImageUrl,
+  ]) {
     setState(() {
       _imageFile = imageFile;
+      _webImageUrl = webImageUrl!;
     });
   }
 }
