@@ -4,6 +4,7 @@ import 'package:myproject/screens/drawerpage/contact_screen.dart';
 import 'package:myproject/screens/drawerpage/info_screen.dart';
 import 'package:myproject/screens/login/login_screen.dart';
 import 'package:myproject/screens/products/product_add.dart';
+import 'package:myproject/screens/products/product_detail.dart';
 import 'package:myproject/screens/register/register_screen.dart';
 import 'package:myproject/screens/welcome/welcome_screen.dart';
 
@@ -17,6 +18,7 @@ class AppRouter {
   static const String about = 'about';
   static const String contact = 'contact';
   static const String productAdd = 'productAdd';
+  static const String productDetail = 'productDetail';
 
   static get routes => {
     welcome: (context) => const WelcomeScreen(),
@@ -27,5 +29,6 @@ class AppRouter {
     about: (context) => const AboutScreen(),
     contact: (context) => const ContractScreen(),
     productAdd: (context) => const ProductAdd(),
+    productDetail: (context) => const ProductDetail(),
   };
 }
