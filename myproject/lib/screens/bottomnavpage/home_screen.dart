@@ -4,6 +4,8 @@ import 'package:myproject/screens/products/components/product_item.dart';
 import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/app_router.dart';
 
+var refreshKey =GlobalKey<RefreshIndicatorState>();
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
