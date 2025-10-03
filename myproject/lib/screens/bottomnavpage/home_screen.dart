@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: IconButton(
               icon: const Icon(Icons.add),
               onPressed: () async {
-                // setState(() {}) จะ trigger FutureBuilder ใหม่ เพราะ widget ถูก rebuild
                 final result = await Navigator.pushNamed(
                   context,
                   AppRouter.productAdd,
@@ -46,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (result == true) {
                   setState(
                     () {},
-                  ); // สั่งให้ build ใหม่ แล้ว FutureBuilder จะ reload
+                  ); // สั่งให้ build ใหม่ แล้ว FutureBuilder จะ reload                Navigator.pushNamed(context,AppRouter.productAdd);
                 }
               },
             ),
@@ -54,23 +53,26 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      body: FutureBuilder(
-        future: CallAPI().getProducts(),
-        builder: (context, AsyncSnapshot snapshot) {
-          // กรณีที่มี error
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง'),
-            );
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            // กรณีที่โหลดข้อมูลสำเร็จ
-            List<ProductModel> products = snapshot.data;
-            return isGridView ? gridView(products) : listView(products);
-          } else {
-            // กรณีที่กำลังโหลดข้อมูล
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      body: RefreshIndicator(
+        onRefresh: () async => setState(() {}),
+        child: FutureBuilder(
+          future: CallAPI().getProducts(),
+          builder: (context, AsyncSnapshot snapshot) {
+            // กรณีที่มี error
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง'),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              // กรณีที่โหลดข้อมูลสำเร็จ
+              List<ProductModel> products = snapshot.data;
+              return isGridView ? gridView(products) : listView(products);
+            } else {
+              // กรณีที่กำลังโหลดข้อมูล
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
