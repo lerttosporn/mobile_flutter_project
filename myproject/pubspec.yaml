@@ -43,6 +43,7 @@ dependencies:
   image_picker: ^1.2.0
   http_parser: ^4.1.2
   image_cropper: ^11.0.0
+  image_cropper_for_web: ^7.0.0 
   image_picker_for_web: ^3.1.0
   path: ^1.9.1
 
