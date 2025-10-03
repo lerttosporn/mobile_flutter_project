@@ -4,7 +4,7 @@ import 'package:myproject/screens/products/components/product_item.dart';
 import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/app_router.dart';
 
-var refreshKey =GlobalKey<RefreshIndicatorState>();
+var refreshKey = GlobalKey<RefreshIndicatorState>();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -93,7 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ProductItem(
           product: productList[index],
           isGrid: true,
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+                context,
+                AppRouter.productDetail,
+                arguments: productList[index].toJson(),
+                );
+              },
         ),
       ),
     );
@@ -109,7 +115,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ProductItem(
             product: productList[index],
             isGrid: false,
-            onTap: () => {},
+            onTap: () => {
+              Navigator.pushNamed(
+                context,
+                AppRouter.productDetail,
+                arguments: productList[index].toJson(),
+              )
+            },
           ),
         ),
       ),
