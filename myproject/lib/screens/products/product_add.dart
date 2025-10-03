@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:myproject/models/product_model.dart';
+import 'package:myproject/screens/bottomnavpage/home_screen.dart';
 import 'package:myproject/screens/products/components/product_form.dart';
 import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/utility.dart';
@@ -56,6 +57,9 @@ class _ProductAddState extends State<ProductAdd> {
                 Utility.logger.d("Product Created: ${response["product"]}");
                 if (response['status'] == 'ok') {
                   Navigator.pop(context, true);
+
+                refreshKey.currentState!.show();
+
                 } else {
                   Utility.logger.e(" api error ");
                 }
