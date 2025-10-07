@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myproject/components/image_not_found.dart';
 import 'package:myproject/models/product_model.dart';
 import 'package:myproject/screens/bottomnavpage/home_screen.dart';
-import 'package:myproject/services/http_config.dart';
 import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/constant.dart';
