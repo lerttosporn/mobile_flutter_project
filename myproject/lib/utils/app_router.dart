@@ -5,6 +5,7 @@ import 'package:myproject/screens/drawerpage/info_screen.dart';
 import 'package:myproject/screens/login/login_screen.dart';
 import 'package:myproject/screens/products/product_add.dart';
 import 'package:myproject/screens/products/product_detail.dart';
+import 'package:myproject/screens/products/product_update.dart';
 import 'package:myproject/screens/register/register_screen.dart';
 import 'package:myproject/screens/welcome/welcome_screen.dart';
 
@@ -19,6 +20,7 @@ class AppRouter {
   static const String contact = 'contact';
   static const String productAdd = 'productAdd';
   static const String productDetail = 'productDetail';
+  static const String productUpdate = 'productUpdate';
 
   static get routes => {
     welcome: (context) => const WelcomeScreen(),
@@ -30,5 +32,6 @@ class AppRouter {
     contact: (context) => const ContractScreen(),
     productAdd: (context) => const ProductAdd(),
     productDetail: (context) => const ProductDetail(),
+    productUpdate: (context) => const ProductUpdate(),
   };
 }

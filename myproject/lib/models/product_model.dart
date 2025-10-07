@@ -27,15 +27,15 @@ class ProductModel {
 
   ProductModel({
     this.id,
-    this.name,//
-    this.description,//
-    this.barcode,//
+    this.name, //
+    this.description, //
+    this.barcode, //
     this.image,
-    this.stock,//
-    this.price,//
-    this.categoryId,//
-    this.userId,//
-    this.statusId,//
+    this.stock, //
+    this.price, //
+    this.categoryId, //
+    this.userId, //
+    this.statusId, //
     this.createdAt,
     this.updatedAt,
   });

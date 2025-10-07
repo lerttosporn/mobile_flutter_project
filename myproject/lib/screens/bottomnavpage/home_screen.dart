@@ -3,6 +3,7 @@ import 'package:myproject/models/product_model.dart';
 import 'package:myproject/screens/products/components/product_item.dart';
 import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/app_router.dart';
+import 'package:myproject/utils/utility.dart';
 
 var refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -95,11 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
           isGrid: true,
           onTap: () {
             Navigator.pushNamed(
-                context,
-                AppRouter.productDetail,
-                arguments: productList[index].toJson(),
-                );
-              },
+              context,
+              AppRouter.productDetail,
+              arguments: productList[index].toJson(),
+            );
+            // Utility.logger.d(productList[index].toJson());
+          },
         ),
       ),
     );
@@ -115,12 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ProductItem(
             product: productList[index],
             isGrid: false,
-            onTap: () => {
+            onTap: () {
               Navigator.pushNamed(
                 context,
                 AppRouter.productDetail,
                 arguments: productList[index].toJson(),
-              )
+              );
+              // Utility.logger.d(productList[index].toJson());
             },
           ),
         ),

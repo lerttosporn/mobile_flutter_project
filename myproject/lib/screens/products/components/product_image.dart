@@ -234,8 +234,8 @@ class _ProductImageState extends State<ProductImage> {
         }
       });
     }
-    Utility.logger.d("_webImagePath = $_webImagePath");
-    Utility.logger.d("_imageFile = $_imageFile");
+    Utility.logger.d("ProductImg _webImagePath (web)= $_webImagePath");
+    Utility.logger.d("ProductImg _imageFile (mobile)= $_imageFile");
   }
 
   Positioned _buildDeleteImageButton() {

@@ -46,9 +46,11 @@ class _ProductAddState extends State<ProductAdd> {
             onPressed: () async {
               if (_formKeyAddProduct.currentState!.validate()) {
                 _formKeyAddProduct.currentState!.save();
-                Utility.logger.d(_product.toJson());
-                Utility.logger.d("_webImagePath = $_webImageUrl");
-                Utility.logger.d("_imageFile = $_imageFile");
+                Utility.logger.d("***ProductADD*** :${_product.toJson()}");
+                Utility.logger.d(
+                  "***ProductADD*** :_webImagePath = $_webImageUrl",
+                );
+                Utility.logger.d("***ProductADD*** :_imageFile = $_imageFile");
                 final response = await CallAPI().addProductAPI(
                   _product,
                   imageFile: _imageFile,
@@ -58,8 +60,7 @@ class _ProductAddState extends State<ProductAdd> {
                 if (response['status'] == 'ok') {
                   Navigator.pop(context, true);
 
-                refreshKey.currentState!.show();
-
+                  refreshKey.currentState!.show();
                 } else {
                   Utility.logger.e(" api error ");
                 }
@@ -90,7 +91,7 @@ class _ProductAddState extends State<ProductAdd> {
   ]) {
     setState(() {
       _imageFile = imageFile;
-      _webImageUrl = webImageUrl!;
+      _webImageUrl = webImageUrl;
     });
   }
 }

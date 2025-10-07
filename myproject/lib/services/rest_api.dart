@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:myproject/models/product_model.dart';
@@ -130,7 +131,6 @@ class CallAPI {
           contentType: MediaType('image', 'jpeg'),
         ),
       );
-      Utility.logger.i("Web image uploaded as bytes");
     }
 
     // ✅ ส่ง request และรับ response
@@ -140,9 +140,10 @@ class CallAPI {
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
       final productData = responseData['product'];
-      Utility.logger.d("responseData: $responseData");
 
-      Utility.logger.d("productData: $productData");
+      Utility.logger.d("***RestAPI*** responseData: $responseData");
+
+      Utility.logger.d("***RestAPI*** productData: $productData");
 
       return responseData; // ✅ return เฉพาะ object ของ product
     } else {
@@ -150,6 +151,18 @@ class CallAPI {
         "Failed to create product: ${response.statusCode} - ${response.body}",
       );
     }
+  }
+
+  Future<String> deleteProductAPI(int id) async {
+    final headers = await HttpConfig.headers;
+
+    final uri = Uri.parse('$baseURLAPI/products/$id');
+    final response = await http.delete(uri, headers: headers);
+    if (response.statusCode == 200) {
+      Utility.logger.d(response.body);
+      return response.body;
+    }
+    throw Exception('Failed to delete product');
   }
 
   //for dio-------------------------------------------------------------------------------------------
