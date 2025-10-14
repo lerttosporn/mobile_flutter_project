@@ -5,7 +5,7 @@ import 'package:myproject/services/rest_api.dart';
 import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/utility.dart';
 
-var refreshKey = GlobalKey<RefreshIndicatorState>();
+final GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (result == true) {
                   setState(
                     () {},
-                  ); // สั่งให้ build ใหม่ แล้ว FutureBuilder จะ reload                Navigator.pushNamed(context,AppRouter.productAdd);
+                  ); // โหลดข้อมูลใหม่ Navigator.pushNamed(context,AppRouter.productAdd);
                 }
               },
             ),
@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       body: RefreshIndicator(
+         key: refreshKey,
         onRefresh: () async => setState(() {}),
         child: FutureBuilder(
           future: CallAPI().getProducts(),

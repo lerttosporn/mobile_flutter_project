@@ -59,7 +59,6 @@ class _ProductAddState extends State<ProductAdd> {
                 Utility.logger.d("Product Created: ${response["product"]}");
                 if (response['status'] == 'ok') {
                   Navigator.pop(context, true);
-
                   refreshKey.currentState!.show();
                 } else {
                   Utility.logger.e(" api error ");
