@@ -44,19 +44,35 @@ class _ProductAddState extends State<ProductAdd> {
         actions: [
           IconButton(
             onPressed: () async {
+              if (_imageFile == null && _webImageUrl == null) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("ยังไม่ได้เลือกรูปภาพ"),
+                    content: const Text("กรุณาเลือกรูปภาพก่อนบันทึกข้อมูล"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("ตกลง"),
+                      ),
+                    ],
+                  ),
+                );
+                return;
+              }
               if (_formKeyAddProduct.currentState!.validate()) {
                 _formKeyAddProduct.currentState!.save();
-                Utility.logger.d("***ProductADD*** :${_product.toJson()}");
-                Utility.logger.d(
-                  "***ProductADD*** :_webImagePath = $_webImageUrl",
-                );
-                Utility.logger.d("***ProductADD*** :_imageFile = $_imageFile");
+                Utility.logger.d("***Product ADD*** :${_product.toJson()}");
+                // Utility.logger.d(
+                //   "***ProductADD*** :_webImagePath = $_webImageUrl",
+                // );
+                // Utility.logger.d("***Product ADD*** :_imageFile = $_imageFile");
                 final response = await CallAPI().addProductAPI(
                   _product,
                   imageFile: _imageFile,
                   webImageUrl: _webImageUrl,
                 );
-                Utility.logger.d("Product Created: ${response["product"]}");
+                // Utility.logger.d("Product Created: ${response["product"]}");
                 if (response['status'] == 'ok') {
                   Navigator.pop(context, true);
                   refreshKey.currentState!.show();

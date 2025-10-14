@@ -28,8 +28,8 @@ class _ProductDetailState extends State<ProductDetail> {
 
     // แปลง args เป็น ProductModel
     final product = ProductModel.fromJson(args);
-    Utility.logger.i("DetailPage args: $args");
-    Utility.logger.i("DetailPage : ${product.toJson()}");
+    // Utility.logger.i("DetailPage args: $args");
+    // Utility.logger.i("DetailPage : ${product.toJson()}");
     // Utility.logger.i(
     //   "DetailPage baseURLImage : ${baseURLImage + "/" + product.image!}",
     // );
@@ -83,7 +83,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     Navigator.pushNamed(
                       context,
                       AppRouter.productUpdate,
-                      arguments: {'products': product},
+                      arguments: {'products':  product.toJson()},
                     );
                   },
                   icon: const Icon(Icons.edit),

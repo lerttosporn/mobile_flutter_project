@@ -164,6 +164,75 @@ class CallAPI {
     }
     throw Exception('Failed to delete product');
   }
+Future updateProduct( ProductModel product, {
+    File? imageFile,
+    String? webImageUrl,
+  }) async {
+    final request = http.MultipartRequest(
+      "PUT",
+      Uri.parse("$baseURLAPI/products/${product.id}"), // ✅ อัปเดต endpoint
+    );
+
+    final headers = await HttpConfig.headers;
+    request.headers.addAll(headers);
+
+    // ✅ ใส่ค่า fields อย่างถูกต้อง
+    request.fields['name'] = product.name ?? "";
+    request.fields['description'] = product.description ?? "";
+    request.fields['barcode'] = product.barcode ?? "";
+    request.fields['stock'] = product.stock.toString();
+    request.fields['price'] = product.price.toString();
+    request.fields['category_id'] = product.categoryId
+        .toString(); // ✅ แก้ชื่อ field
+    request.fields['user_id'] = product.userId.toString();
+    request.fields['status_id'] = product.statusId.toString();
+
+    Utility.logger.i("Request Fields: id{${product.id}} ${request.fields}");
+
+    // ✅ อัปโหลดไฟล์แบบ File
+    if (imageFile != null) {
+      final mimeType = MediaType('image', 'jpeg');
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'photo',
+          imageFile.path,
+          contentType: mimeType,
+          filename: basename(imageFile.path),
+        ),
+      );
+    }
+    // ✅ สำหรับ Web - ใช้ bytes ไม่ใช่ base64 string
+    else if (kIsWeb && webImageUrl != null) {
+      final bytes = await _readBytesFromBlobUrl(webImageUrl);
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'photo',
+          bytes,
+          filename: 'web_image.jpg',
+          contentType: MediaType('image', 'jpeg'),
+        ),
+      );
+    }
+
+    // ✅ ส่ง request และรับ response
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      final productData = responseData['product'];
+
+      // Utility.logger.d("***RestAPI*** responseData: $responseData");
+
+      // Utility.logger.d("***RestAPI*** productData: $productData");
+
+      return responseData; // ✅ return เฉพาะ object ของ product
+    } else {
+      throw Exception(
+        "Failed to create product: ${response.statusCode} - ${response.body}",
+      );
+    }
+  }
 
   //for dio-------------------------------------------------------------------------------------------
   // Future<String> addProductApi(ProductModel product, {File? imageFile}) async {
