@@ -10,6 +10,13 @@ class ProductUpdate extends StatefulWidget {
 class _ProductUpdateState extends State<ProductUpdate> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Update"),
+      ),
+      body: Center(
+        child: Text("Update Screen"),
+      ),
+    );
   }
 }
