@@ -30,9 +30,9 @@ class _ProductDetailState extends State<ProductDetail> {
     final product = ProductModel.fromJson(args);
     Utility.logger.i("DetailPage args: $args");
     Utility.logger.i("DetailPage : ${product.toJson()}");
-    Utility.logger.i(
-      "DetailPage baseURLImage : ${baseURLImage + "/" + product.image!}",
-    );
+    // Utility.logger.i(
+    //   "DetailPage baseURLImage : ${baseURLImage + "/" + product.image!}",
+    // );
 
     return Scaffold(
       appBar: AppBar(title: Text(product.name ?? 'ไม่มีชื่อสินค้า')),
