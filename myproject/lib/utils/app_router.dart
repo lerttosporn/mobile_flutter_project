@@ -1,3 +1,4 @@
+import 'package:myproject/screens/counter/counter_provider_screen.dart';
 import 'package:myproject/screens/counter/counter_stateful.screen.dart';
 import 'package:myproject/screens/dashboard/dashbord_screen.dart';
 import 'package:myproject/screens/drawerpage/about_screen.dart';
@@ -23,6 +24,7 @@ class AppRouter {
   static const String productDetail = 'productDetail';
   static const String productUpdate = 'productUpdate';
  static const String counterStatefulScreen = 'counterStatefulScreen';
+ static const String counterProviderScreen = 'counterProviderScreen';
   static get routes => {
     welcome: (context) => const WelcomeScreen(),
     login: (context) => const LoginScreen(),
@@ -35,5 +37,6 @@ class AppRouter {
     productDetail: (context) => const ProductDetail(),
     productUpdate: (context) => const ProductUpdate(),
     counterStatefulScreen: (context) => const CounterStatefulScreen(),
+    counterProviderScreen: (context) => CounterProviderScreen(),
   };
 }

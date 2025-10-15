@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class CounterStatefulScreen extends StatefulWidget {
+class CounterStatefulScreen extends StatelessWidget {
   const CounterStatefulScreen({ super.key });
 
-  @override
-  _CounterStatefulScreenState createState() => _CounterStatefulScreenState();
-}
-
-class _CounterStatefulScreenState extends State<CounterStatefulScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/providers/counter_provider.dart';
+import 'package:myproject/providers/timer_provider.dart';
 import 'package:myproject/themes/style.dart';
 import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/utility.dart';
+import 'package:provider/provider.dart';
 
 var InitialRoute;
 void main() async {
@@ -32,11 +35,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      initialRoute: InitialRoute,
-      routes: AppRouter.routes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CounterProvider()),
+        ChangeNotifierProvider(create: (context) => TimerProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        initialRoute: InitialRoute,
+        routes: AppRouter.routes,
+      ),
     );
   }
 }

@@ -48,6 +48,9 @@ dependencies:
   path: ^1.9.1
   provider: ^6.1.5+1
   
+  flutter_localizations: 
+    sdk: flutter
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,6 +71,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  #Gernerate a Localization File Per Language
+  generate: true
+
+
 
   # To add assets to your application, add an assets section, like this:
   assets:

@@ -99,6 +99,11 @@ class _DashbordScreenState extends State<DashbordScreen> {
                     ),
                   ],
                 ),
+                 ListTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('counterProviderScreen'),
+                  onTap: () => {Navigator.pushNamed(context, AppRouter.counterProviderScreen)},
+                ),
                 ListTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('Info'),
