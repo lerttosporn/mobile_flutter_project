@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myproject/l10n/app_localizations.dart';
+import 'package:myproject/providers/locale_provider.dart';
 import 'package:myproject/providers/counter_provider.dart';
 import 'package:myproject/providers/timer_provider.dart';
 import 'package:myproject/themes/style.dart';
@@ -37,14 +39,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CounterProvider()),
-        ChangeNotifierProvider(create: (context) => TimerProvider()),
+        ChangeNotifierProvider(
+          create: (_) => CounterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TimerProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LocaleProvider(
+            const Locale('en'),
+          ),
+        )
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        initialRoute: InitialRoute,
-        routes: AppRouter.routes,
+       child: Consumer<LocaleProvider>(
+        builder: (context, locale, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: locale.locale,
+            initialRoute: InitialRoute,
+            routes: AppRouter.routes,
+          );
+        },
       ),
     );
   }

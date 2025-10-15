@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:myproject/l10n/app_localizations.dart';
 import 'package:myproject/screens/bottomnavpage/home_screen.dart';
 import 'package:myproject/screens/bottomnavpage/notification_screen.dart';
 import 'package:myproject/screens/bottomnavpage/profile_screen.dart';
@@ -99,11 +101,6 @@ class _DashbordScreenState extends State<DashbordScreen> {
                     ),
                   ],
                 ),
-                 ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text('counterProviderScreen'),
-                  onTap: () => {Navigator.pushNamed(context, AppRouter.counterProviderScreen)},
-                ),
                 ListTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('Info'),
@@ -147,26 +144,26 @@ class _DashbordScreenState extends State<DashbordScreen> {
         type: BottomNavigationBarType.shifting,
         selectedItemColor: primaryDark,
         unselectedItemColor: primaryLight,
-        items: [
+         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_max_outlined),
-            label: 'Home',
+            icon: Icon(Icons.home_outlined),
+            label: AppLocalizations.of(context)!.menu_home,
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_outlined),
-            label: 'Report',
+            label: AppLocalizations.of(context)!.menu_report,
           ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_active_outlined),
-            label: 'Notification',
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_outlined),
+            label: AppLocalizations.of(context)!.menu_notification,
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings_outlined),
-            label: 'Setting',
+            label: AppLocalizations.of(context)!.menu_setting,
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
-            label: 'Profile',
+            label: AppLocalizations.of(context)!.menu_profile,
           ),
         ],
       ),
