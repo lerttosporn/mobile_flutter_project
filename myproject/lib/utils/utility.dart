@@ -1,6 +1,8 @@
 // utility.dart
 // This file contains utility functions for the project.
 
+import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -62,6 +64,20 @@ class Utility {
     if (value is double) {
       return await _prefs!.setDouble(key, value);
     }
+  //     if (value is List<String>) {
+  //   return await _prefs!.setStringList(key, value);
+  // }
+  // // ถ้าเป็น List ของประเภทอื่น หรือ Map
+  // if (value is List) {
+  //   // แปลงเป็น List<String> ผ่าน json ของแต่ละ element
+  //   List<String> strList = value.map((e) => jsonEncode(e)).toList();
+  //   return await _prefs!.setStringList(key, strList);
+  // }
+  if (value is Map) {
+    // แปลง Map เป็น JSON string แล้วเก็บผ่าน setString
+    String jsonString  = jsonEncode(value);
+    return await _prefs!.setString(key, jsonString );
+  }
     return false;
   }
 

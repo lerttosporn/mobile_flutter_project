@@ -101,6 +101,12 @@ class LoginForm extends StatelessWidget {
                           body["token"],
                         );
                         await Utility.setSharedPreference("user", body["user"]);
+                        // await Utility.setSharedPreference("firstname", body["user"]["firstname"]);
+                        // await Utility.setSharedPreference("lastname", body["user"]["lastname"]);
+                        // await Utility.setSharedPreference("email", body["user"]["email"]);
+                        // Utility.logger.i("firstname: ${Utility.getSharedPreferance("firstname")}");
+                        // Utility.logger.i("lastname: ${Utility.getSharedPreferance("lastname")}");
+                        // Utility.logger.i("email: ${Utility.getSharedPreferance("email")}");
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           AppRouter.dashboard,

@@ -1,6 +1,8 @@
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:myproject/l10n/app_localizations.dart';
+import 'package:myproject/providers/user_provider.dart';
 import 'package:myproject/screens/bottomnavpage/home_screen.dart';
 import 'package:myproject/screens/bottomnavpage/notification_screen.dart';
 import 'package:myproject/screens/bottomnavpage/profile_screen.dart';
@@ -9,6 +11,7 @@ import 'package:myproject/screens/bottomnavpage/setting_screen.dart';
 import 'package:myproject/themes/colors.dart';
 import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/utility.dart';
+import 'package:provider/provider.dart';
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({super.key});
@@ -58,6 +61,23 @@ class _DashbordScreenState extends State<DashbordScreen> {
     });
   }
 
+  // String? _firstname, _lastname, _email;
+  Map<String, dynamic>? _user;
+  getUerProfile() async {
+    // var firstname = await Utility.getSharedPreferance("firstname");
+    // var lastname = await Utility.getSharedPreferance("lastname");
+    // var email = await Utility.getSharedPreferance("email");
+    var user = await Utility.getSharedPreferance("user");
+    // Utility.logger.i("User Info : ${jsonDecode(user)}");
+
+    setState(() {
+      _user = jsonDecode(user);
+      // _firstname = firstname;
+      // _lastname = lastname;
+      // _email = email;
+    });
+  }
+
   //LogOut function------------------------------------------------
   _logout() {
     Utility.deleteSharedPreferance("token");
@@ -69,10 +89,22 @@ class _DashbordScreenState extends State<DashbordScreen> {
       (route) => false,
     );
   }
-  //---------------------------------------------------------------
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // getUerProfile();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserProvider>().loadUserProfile();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
+    final user = userProvider.user;
     return Scaffold(
       appBar: AppBar(title: Text(_title)),
       // menu bar left side
@@ -84,23 +116,41 @@ class _DashbordScreenState extends State<DashbordScreen> {
               // Important: Remove any padding from the ListView.
               shrinkWrap: true,
               children: [
-                UserAccountsDrawerHeader(
-                  accountName: Text("Name"),
-                  accountEmail: Text("Email"),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/user.jpg"),
-                  ),
-                  otherAccountsPictures: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(
-                        "assets/images/noavartar.png",
-                      ),
-                    ),
-                    CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/signup.png"),
-                    ),
-                  ],
+                Consumer<UserProvider>(
+                  builder:
+                      (
+                        BuildContext context,
+                        UserProvider value,
+                        Widget? child,
+                      ) {
+                        final user = value.user;
+
+                        return UserAccountsDrawerHeader(
+                          accountName: Text(
+                            "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
+                          ),
+                          accountEmail: Text("${user?["email"] ?? ''}"),
+                          currentAccountPicture: CircleAvatar(
+                            backgroundImage: AssetImage(
+                              "assets/images/user.jpg",
+                            ),
+                          ),
+                          otherAccountsPictures: const [
+                            CircleAvatar(
+                              backgroundImage: AssetImage(
+                                "assets/images/noavartar.png",
+                              ),
+                            ),
+                            CircleAvatar(
+                              backgroundImage: AssetImage(
+                                "assets/images/signup.png",
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                 ),
+
                 ListTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('Info'),
@@ -127,7 +177,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
                   ListTile(
                     leading: Icon(Icons.logout),
                     title: Text('Logout'),
-                    onTap: () => _logout(),
+                    onTap: () => userProvider.logout(context),
                   ),
                 ],
               ),
@@ -144,7 +194,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
         type: BottomNavigationBarType.shifting,
         selectedItemColor: primaryDark,
         unselectedItemColor: primaryLight,
-         items: [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: AppLocalizations.of(context)!.menu_home,

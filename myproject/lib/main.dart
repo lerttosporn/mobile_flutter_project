@@ -3,6 +3,7 @@ import 'package:myproject/l10n/app_localizations.dart';
 import 'package:myproject/providers/locale_provider.dart';
 import 'package:myproject/providers/counter_provider.dart';
 import 'package:myproject/providers/timer_provider.dart';
+import 'package:myproject/providers/user_provider.dart';
 import 'package:myproject/themes/style.dart';
 import 'package:myproject/utils/app_router.dart';
 import 'package:myproject/utils/utility.dart';
@@ -39,19 +40,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => CounterProvider()),
+        ChangeNotifierProvider(create: (_) => TimerProvider()),
         ChangeNotifierProvider(
-          create: (_) => CounterProvider(),
+          create: (_) => LocaleProvider(const Locale('en')),
         ),
-        ChangeNotifierProvider(
-          create: (_) => TimerProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => LocaleProvider(
-            const Locale('en'),
-          ),
-        )
+        ChangeNotifierProvider(create: (context) => UserProvider()),
       ],
-       child: Consumer<LocaleProvider>(
+      child: Consumer<LocaleProvider>(
         builder: (context, locale, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
