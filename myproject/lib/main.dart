@@ -10,6 +10,8 @@ import 'package:myproject/utils/utility.dart';
 import 'package:provider/provider.dart';
 
 var InitialRoute;
+
+var locale;
 void main() async {
   //test logger
   Utility.testLogger();
@@ -30,6 +32,10 @@ void main() async {
     InitialRoute = AppRouter.welcome;
   }
 
+  String? languageCode = await Utility.getSharedPreferance(
+    'localeLanguageCode',
+  );
+  locale = Locale(languageCode ?? 'en');
   runApp(const MyApp());
 }
 
@@ -43,7 +49,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CounterProvider()),
         ChangeNotifierProvider(create: (_) => TimerProvider()),
         ChangeNotifierProvider(
-          create: (_) => LocaleProvider(const Locale('en')),
+          create: (_) => LocaleProvider(locale),
         ),
         ChangeNotifierProvider(create: (context) => UserProvider()),
       ],

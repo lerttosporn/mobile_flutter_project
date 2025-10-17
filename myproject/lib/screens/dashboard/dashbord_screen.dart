@@ -41,19 +41,19 @@ class _DashbordScreenState extends State<DashbordScreen> {
       _currentIndex = index;
       switch (index) {
         case 0:
-          _title = 'Home';
+          _title = AppLocalizations.of(context)!.menu_home;
           break;
         case 1:
-          _title = 'Report';
+          _title = AppLocalizations.of(context)!.menu_report;
           break;
         case 2:
-          _title = 'Notification';
+          _title = AppLocalizations.of(context)!.menu_notification;
           break;
         case 3:
-          _title = 'Setting';
+          _title = AppLocalizations.of(context)!.menu_setting;
           break;
         case 4:
-          _title = 'Profile';
+          _title = AppLocalizations.of(context)!.menu_profile;
           break;
         default:
           _title = "FluterStroe";
@@ -125,25 +125,46 @@ class _DashbordScreenState extends State<DashbordScreen> {
                       ) {
                         final user = value.user;
 
-                        return UserAccountsDrawerHeader(
-                          accountName: Text(
-                            "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
-                          ),
+                        // return UserAccountsDrawerHeader(
+                        //   accountName: Text(
+                        //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
+                        //   ),
+                        //   accountEmail: Text("${user?["email"] ?? ''}"),
+                        //   currentAccountPicture: CircleAvatar(
+                        //     backgroundImage: AssetImage(
+                        //       "assets/images/user.jpg",
+                        //     ),
+                        //   ),
+                        //   otherAccountsPictures: const [
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         "assets/images/noavartar.png",
+                        //       ),
+                        //     ),
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         "assets/images/signup.png",
+                        //       ),
+                        //     ),
+                        //   ],
+                        UserAccountsDrawerHeader(
+                          margin: EdgeInsets.only(bottom: 0.0),
+                          accountName: Text( "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}"),
                           accountEmail: Text("${user?["email"] ?? ''}"),
+                          decoration: BoxDecoration(
+                            color: 
+                            // provider.isDark ? primaryText :
+                             primary,
+                          ),
                           currentAccountPicture: CircleAvatar(
                             backgroundImage: AssetImage(
-                              "assets/images/user.jpg",
+                              'assets/images/noavartar.png',
                             ),
                           ),
-                          otherAccountsPictures: const [
+                          otherAccountsPictures: [
                             CircleAvatar(
                               backgroundImage: AssetImage(
-                                "assets/images/noavartar.png",
-                              ),
-                            ),
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                "assets/images/signup.png",
+                                'assets/images/noavartar.png',
                               ),
                             ),
                           ],
