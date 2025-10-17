@@ -11,7 +11,7 @@ class AppTheme {
   );
 
   static final ThemeData lightTheme = ThemeData(
-    useMaterial3: false,
+    useMaterial3: true,
     fontFamily: "NotoSansThai",
     primaryColor: primary,
     primaryColorDark: primaryDark,
@@ -36,7 +36,7 @@ class AppTheme {
 
   //Darktheme
   static final ThemeData darkTheme = ThemeData(
-    useMaterial3: false,
+    useMaterial3: true,
     fontFamily: "NotoSansThai",
     primaryColor: primary,
     primaryColorDark: primaryDark,
