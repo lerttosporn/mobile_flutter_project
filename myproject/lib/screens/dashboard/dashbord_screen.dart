@@ -117,59 +117,56 @@ class _DashbordScreenState extends State<DashbordScreen> {
               shrinkWrap: true,
               children: [
                 Consumer<UserProvider>(
-                  builder:
-                      (
-                        BuildContext context,
-                        UserProvider value,
-                        Widget? child,
-                      ) {
-                        final user = value.user;
-
-                        // return UserAccountsDrawerHeader(
-                        //   accountName: Text(
-                        //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
-                        //   ),
-                        //   accountEmail: Text("${user?["email"] ?? ''}"),
-                        //   currentAccountPicture: CircleAvatar(
-                        //     backgroundImage: AssetImage(
-                        //       "assets/images/user.jpg",
-                        //     ),
-                        //   ),
-                        //   otherAccountsPictures: const [
-                        //     CircleAvatar(
-                        //       backgroundImage: AssetImage(
-                        //         "assets/images/noavartar.png",
-                        //       ),
-                        //     ),
-                        //     CircleAvatar(
-                        //       backgroundImage: AssetImage(
-                        //         "assets/images/signup.png",
-                        //       ),
-                        //     ),
-                        //   ],
-                        UserAccountsDrawerHeader(
-                          margin: EdgeInsets.only(bottom: 0.0),
-                          accountName: Text( "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}"),
-                          accountEmail: Text("${user?["email"] ?? ''}"),
-                          decoration: BoxDecoration(
-                            color: 
+                  builder: (BuildContext context, UserProvider value, Widget? child) {
+                    final user = value.user;
+                    return 
+                    // return UserAccountsDrawerHeader(
+                    //   accountName: Text(
+                    //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
+                    //   ),
+                    //   accountEmail: Text("${user?["email"] ?? ''}"),
+                    //   currentAccountPicture: CircleAvatar(
+                    //     backgroundImage: AssetImage(
+                    //       "assets/images/user.jpg",
+                    //     ),
+                    //   ),
+                    //   otherAccountsPictures: const [
+                    //     CircleAvatar(
+                    //       backgroundImage: AssetImage(
+                    //         "assets/images/noavartar.png",
+                    //       ),
+                    //     ),
+                    //     CircleAvatar(
+                    //       backgroundImage: AssetImage(
+                    //         "assets/images/signup.png",
+                    //       ),
+                    //     ),
+                    //   ],
+                    UserAccountsDrawerHeader(
+                      margin: EdgeInsets.only(bottom: 0.0),
+                      accountName: Text(
+                        "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
+                      ),
+                      accountEmail: Text("${user?["email"] ?? ''}"),
+                      decoration: BoxDecoration(
+                        color:
                             // provider.isDark ? primaryText :
-                             primary,
+                            primary,
+                      ),
+                      currentAccountPicture: CircleAvatar(
+                        backgroundImage: AssetImage(
+                          'assets/images/noavartar.png',
+                        ),
+                      ),
+                      otherAccountsPictures: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage(
+                            'assets/images/noavartar.png',
                           ),
-                          currentAccountPicture: CircleAvatar(
-                            backgroundImage: AssetImage(
-                              'assets/images/noavartar.png',
-                            ),
-                          ),
-                          otherAccountsPictures: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/images/noavartar.png',
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                        ),
+                      ],
+                    );
+                  },
                 ),
 
                 ListTile(
