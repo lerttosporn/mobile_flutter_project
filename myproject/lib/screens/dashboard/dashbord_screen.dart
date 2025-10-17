@@ -62,33 +62,33 @@ class _DashbordScreenState extends State<DashbordScreen> {
   }
 
   // String? _firstname, _lastname, _email;
-  Map<String, dynamic>? _user;
-  getUerProfile() async {
-    // var firstname = await Utility.getSharedPreferance("firstname");
-    // var lastname = await Utility.getSharedPreferance("lastname");
-    // var email = await Utility.getSharedPreferance("email");
-    var user = await Utility.getSharedPreferance("user");
-    // Utility.logger.i("User Info : ${jsonDecode(user)}");
+  // Map<String, dynamic>? _user;
+  // getUerProfile() async {
+  //   // var firstname = await Utility.getSharedPreferance("firstname");
+  //   // var lastname = await Utility.getSharedPreferance("lastname");
+  //   // var email = await Utility.getSharedPreferance("email");
+  //   var user = await Utility.getSharedPreferance("user");
+  //   // Utility.logger.i("User Info : ${jsonDecode(user)}");
 
-    setState(() {
-      _user = jsonDecode(user);
-      // _firstname = firstname;
-      // _lastname = lastname;
-      // _email = email;
-    });
-  }
+  //   setState(() {
+  //     _user = jsonDecode(user);
+  //     // _firstname = firstname;
+  //     // _lastname = lastname;
+  //     // _email = email;
+  //   });
+  // }
 
-  //LogOut function------------------------------------------------
-  _logout() {
-    Utility.deleteSharedPreferance("token");
-    Utility.deleteSharedPreferance("loginStatus");
-    //Clear Screen-------------------------------------------------
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      AppRouter.login,
-      (route) => false,
-    );
-  }
+  // //LogOut function------------------------------------------------
+  // _logout() {
+  //   Utility.deleteSharedPreferance("token");
+  //   Utility.deleteSharedPreferance("loginStatus");
+  //   //Clear Screen-------------------------------------------------
+  //   Navigator.pushNamedAndRemoveUntil(
+  //     context,
+  //     AppRouter.login,
+  //     (route) => false,
+  //   );
+  // }
 
   @override
   void initState() {
@@ -110,6 +110,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
       // menu bar left side
       drawer: Drawer(
         backgroundColor: primaryLight,
+
         child: Column(
           children: [
             ListView(
@@ -119,7 +120,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
                 Consumer<UserProvider>(
                   builder: (BuildContext context, UserProvider value, Widget? child) {
                     final user = value.user;
-                    return 
+                    return
                     // return UserAccountsDrawerHeader(
                     //   accountName: Text(
                     //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
@@ -170,18 +171,31 @@ class _DashbordScreenState extends State<DashbordScreen> {
                 ),
 
                 ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text('Info'),
-                  onTap: () => {Navigator.pushNamed(context, AppRouter.info)},
+                  leading: Icon(Icons.info_outline, color: icons),
+                  title: Text(
+                    AppLocalizations.of(context)!.menu_info,
+                    style: TextStyle(color: icons),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRouter.info);
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person_outline),
-                  title: Text('About'),
-                  onTap: () => {Navigator.pushNamed(context, AppRouter.about)},
+                  leading: Icon(Icons.person_outline, color: icons),
+                  title: Text(
+                    AppLocalizations.of(context)!.menu_about,
+                    style: TextStyle(color: icons),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRouter.about);
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.email_outlined),
-                  title: Text('Contact'),
+                  leading: Icon(Icons.email_outlined, color: icons),
+                  title: Text(
+                    AppLocalizations.of(context)!.menu_contact,
+                    style: TextStyle(color: icons),
+                  ),
                   onTap: () => {
                     Navigator.pushNamed(context, AppRouter.contact),
                   },
@@ -193,8 +207,11 @@ class _DashbordScreenState extends State<DashbordScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Logout'),
+                    leading: Icon(Icons.exit_to_app_outlined, color: icons),
+                    title: Text(
+                      AppLocalizations.of(context)!.menu_logout,
+                      style: TextStyle(color: icons),
+                    ),
                     onTap: () => userProvider.logout(context),
                   ),
                 ],
@@ -209,7 +226,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => {ontabTapped(value)},
         currentIndex: _currentIndex,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: primaryDark,
         unselectedItemColor: primaryLight,
         items: [

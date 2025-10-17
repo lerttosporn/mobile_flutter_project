@@ -65,7 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Container(
           height: 250,
           decoration: BoxDecoration(
-            // color: provider.isDark ? primaryText : primary,
+            color: 
+            // provider.isDark ? primaryText :
+             primary,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
