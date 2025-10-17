@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:myproject/l10n/app_localizations.dart';
+import 'package:myproject/providers/theme_provider.dart';
 import 'package:myproject/providers/user_provider.dart';
 import 'package:myproject/screens/bottomnavpage/home_screen.dart';
 import 'package:myproject/screens/bottomnavpage/notification_screen.dart';
@@ -105,69 +106,74 @@ class _DashbordScreenState extends State<DashbordScreen> {
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
     // final user = userProvider.user;
+      final themeProvider = context.watch<ThemeProvider>(); 
+
     return Scaffold(
       appBar: AppBar(title: Text(_title)),
       // menu bar left side
       drawer: Drawer(
-        backgroundColor: primaryLight,
-
+      backgroundColor: themeProvider.isDark ? primaryDark : primaryLight, 
         child: Column(
           children: [
             ListView(
               // Important: Remove any padding from the ListView.
               shrinkWrap: true,
               children: [
-                Consumer<UserProvider>(
-                  builder: (BuildContext context, UserProvider value, Widget? child) {
-                    final user = value.user;
-                    return
-                    // return UserAccountsDrawerHeader(
-                    //   accountName: Text(
-                    //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
-                    //   ),
-                    //   accountEmail: Text("${user?["email"] ?? ''}"),
-                    //   currentAccountPicture: CircleAvatar(
-                    //     backgroundImage: AssetImage(
-                    //       "assets/images/user.jpg",
-                    //     ),
-                    //   ),
-                    //   otherAccountsPictures: const [
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage(
-                    //         "assets/images/noavartar.png",
-                    //       ),
-                    //     ),
-                    //     CircleAvatar(
-                    //       backgroundImage: AssetImage(
-                    //         "assets/images/signup.png",
-                    //       ),
-                    //     ),
-                    //   ],
-                    UserAccountsDrawerHeader(
-                      margin: EdgeInsets.only(bottom: 0.0),
-                      accountName: Text(
-                        "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
-                      ),
-                      accountEmail: Text("${user?["email"] ?? ''}"),
-                      decoration: BoxDecoration(
-                        color:
-                            // provider.isDark ? primaryText :
-                            primary,
-                      ),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'assets/images/noavartar.png',
-                        ),
-                      ),
-                      otherAccountsPictures: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/images/noavartar.png',
+                Consumer2<UserProvider, ThemeProvider>(
+                  builder:
+                      (
+                        BuildContext context,
+                        UserProvider value,
+                        ThemeProvider theme,
+                        Widget? child,
+                      ) {
+                        final user = value.user;
+                        return
+                        // return UserAccountsDrawerHeader(
+                        //   accountName: Text(
+                        //     "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
+                        //   ),
+                        //   accountEmail: Text("${user?["email"] ?? ''}"),
+                        //   currentAccountPicture: CircleAvatar(
+                        //     backgroundImage: AssetImage(
+                        //       "assets/images/user.jpg",
+                        //     ),
+                        //   ),
+                        //   otherAccountsPictures: const [
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         "assets/images/noavartar.png",
+                        //       ),
+                        //     ),
+                        //     CircleAvatar(
+                        //       backgroundImage: AssetImage(
+                        //         "assets/images/signup.png",
+                        //       ),
+                        //     ),
+                        //   ],
+                        UserAccountsDrawerHeader(
+                          margin: EdgeInsets.only(bottom: 0.0),
+                          accountName: Text(
+                            "${user?["firstname"] ?? 'no info'} ${user?["lastname"] ?? 'no info'}",
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                          accountEmail: Text("${user?["email"] ?? ''}"),
+                          decoration: BoxDecoration(
+                            color: theme.isDark ? primaryText : primary,
+                          ),
+                          currentAccountPicture: CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/noavartar.png',
+                            ),
+                          ),
+                          otherAccountsPictures: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage(
+                                'assets/images/noavartar.png',
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                 ),
 
                 ListTile(

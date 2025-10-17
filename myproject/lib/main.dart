@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myproject/l10n/app_localizations.dart';
 import 'package:myproject/providers/locale_provider.dart';
 import 'package:myproject/providers/counter_provider.dart';
+import 'package:myproject/providers/theme_provider.dart';
 import 'package:myproject/providers/timer_provider.dart';
 import 'package:myproject/providers/user_provider.dart';
 import 'package:myproject/themes/style.dart';
@@ -12,6 +13,9 @@ import 'package:provider/provider.dart';
 var InitialRoute;
 
 var locale;
+
+ThemeData? themeData;
+var isDark;
 void main() async {
   //test logger
   Utility.testLogger();
@@ -36,6 +40,11 @@ void main() async {
     'localeLanguageCode',
   );
   locale = Locale(languageCode ?? 'en');
+
+  isDark = await Utility.getSharedPreferance("isDark") ?? false;
+  themeData = isDark && isDark != null
+      ? AppTheme.darkTheme
+      : AppTheme.lightTheme;
   runApp(const MyApp());
 }
 
@@ -48,16 +57,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CounterProvider()),
         ChangeNotifierProvider(create: (_) => TimerProvider()),
-        ChangeNotifierProvider(
-          create: (_) => LocaleProvider(locale),
-        ),
+        ChangeNotifierProvider(create: (_) => LocaleProvider(locale)),
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(themeData!, isDark),
+        ),
       ],
-      child: Consumer<LocaleProvider>(
-        builder: (context, locale, child) {
+      child: Consumer2<LocaleProvider, ThemeProvider>(
+        builder: (context, locale, theme, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
+            theme: theme.getTheme(),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: locale.locale,

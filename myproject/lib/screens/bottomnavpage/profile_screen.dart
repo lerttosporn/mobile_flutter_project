@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myproject/l10n/app_localizations.dart';
 import 'package:myproject/providers/locale_provider.dart';
+import 'package:myproject/providers/theme_provider.dart';
 import 'package:myproject/providers/user_provider.dart';
 import 'package:myproject/themes/colors.dart';
+import 'package:myproject/themes/style.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -13,12 +15,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.read<UserProvider>().loadUserProfile();
+      context.read<UserProvider>().loadUserProfile();
     });
   }
 
@@ -30,25 +31,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           _buildHeader(),
           _buildListMenu(),
-          // Consumer<ThemeProvider>(
-          //   builder: (context, provider, child) {
-          //     return Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Switch(
-          //           value: provider.isDark,
-          //           onChanged: (value) {
-          //             // Toggle theme
-          //             provider.setTheme(
-          //               value ? AppTheme.darkTheme : AppTheme.lightTheme,
-          //             );
-          //           },
-          //         ),
-          //         Text(provider.isDark ? 'Dark Mode' : 'Light Mode'),
-          //       ],
-          //     );
-          //   },
-          // ),
+          Consumer<ThemeProvider>(
+            builder: (context, provider, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Switch(
+                    value: provider.isDark,
+                    onChanged: (value) {
+                      provider.setTheme(
+                        value ? AppTheme.darkTheme : AppTheme.lightTheme,
+                      );
+                    },
+                  ),
+                  Text(provider.isDark ? 'Dark Mode' : 'Light Mode'),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );
@@ -65,9 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Container(
           height: 250,
           decoration: BoxDecoration(
-            color: 
-            // provider.isDark ? primaryText :
-             primary,
+            color:
+                // provider.isDark ? primaryText :
+                primary,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
