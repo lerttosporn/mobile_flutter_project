@@ -17,10 +17,20 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  void clearUser() {
+    _user = null;
+    notifyListeners();
+  }
+
   Future<void> logout(BuildContext context) async {
     await Utility.deleteSharedPreferance("token");
     await Utility.deleteSharedPreferance("loginStatus");
-
-    Navigator.pushAndRemoveUntil(context, AppRouter.login as Route<Object?>, (route) => false);
+    clearUser();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRouter.login, // <-- 'login'
+      (route) => false,
+    );
+    Utility.logger.i(_user);
   }
 }

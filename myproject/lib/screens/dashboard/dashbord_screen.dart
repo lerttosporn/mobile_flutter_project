@@ -104,7 +104,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
-    final user = userProvider.user;
+    // final user = userProvider.user;
     return Scaffold(
       appBar: AppBar(title: Text(_title)),
       // menu bar left side
