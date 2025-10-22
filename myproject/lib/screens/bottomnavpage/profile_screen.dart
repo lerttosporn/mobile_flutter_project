@@ -56,8 +56,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // สร้าง widget สำหรับแสดงข้อมูล profile ที่อ่านมาจาก shared preference
   Widget _buildHeader() {
-    return Consumer<UserProvider>(
-      builder: (context, provider, child) {
+    return Consumer2<UserProvider,ThemeProvider>(
+      builder: (context, provider,theme, child) {
         final user = provider.user;
         final firstName = user?['firstName'] ?? '';
         final lastName = user?['lastName'] ?? '';
@@ -66,8 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 250,
           decoration: BoxDecoration(
             color:
-                // provider.isDark ? primaryText :
-                primary,
+                theme.isDark ? primaryText :primary,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

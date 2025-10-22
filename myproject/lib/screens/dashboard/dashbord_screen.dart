@@ -112,7 +112,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
       appBar: AppBar(title: Text(_title)),
       // menu bar left side
       drawer: Drawer(
-      backgroundColor: themeProvider.isDark ? primaryDark : primaryLight, 
+      backgroundColor: themeProvider.isDark ? primaryText : primaryLight, 
         child: Column(
           children: [
             ListView(

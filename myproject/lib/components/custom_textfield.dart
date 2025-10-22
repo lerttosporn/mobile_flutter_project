@@ -37,12 +37,13 @@ Widget customTextFieldProduct({
   int maxLines = 1,
   String initialValue = '',
   List<TextInputFormatter>? inputFormatters,
+
   required String? Function(String?)? validator,
   required Function(String?)? onSaved,
 }) {
   return TextFormField(
     keyboardType: textInputType,
-    inputFormatters:inputFormatters,
+    inputFormatters: inputFormatters,
     maxLines: maxLines,
     autofocus: false,
     enableSuggestions: false,
@@ -51,6 +52,7 @@ Widget customTextFieldProduct({
     obscureText: obscureText,
     decoration: InputDecoration(
       hintText: hintText,
+      hintStyle: const TextStyle(color: Colors.grey),
       prefixIcon: prefixIcon,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(40),
@@ -59,7 +61,6 @@ Widget customTextFieldProduct({
       filled: true,
       isDense: true,
       contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-      fillColor: Colors.grey[300],
     ),
     validator: validator,
     onSaved: onSaved,
