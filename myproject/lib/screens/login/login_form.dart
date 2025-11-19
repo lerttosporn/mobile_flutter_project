@@ -35,7 +35,7 @@ class LoginForm extends StatelessWidget {
                   controller: _emailController,
                   hintText: "Email",
                   prefixIcon: const Icon(Icons.email),
-                  isObscureText: false,
+                  isObscureText: true,
                   keyboard: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
